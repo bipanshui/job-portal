@@ -1,9 +1,15 @@
+'use client';
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+
+  const [activeTab, setactiveTab] = useState("");
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <main className="flex-1">
@@ -28,6 +34,62 @@ export default function Home() {
           </div>
 
         </section>
+
+
+
+        {/* Hero Images Section with Tabs */}
+        <section className="border-t bg-white py-16">
+          <div className="container mx-auto px-4">
+
+            <div className="mx-auto max-w-6xl">
+              {/* Tabs */}
+              <div className="flex gap-2 justify-center">
+                <Button onClick={() => {
+                  activeTab === "organize" ? setactiveTab("") : setactiveTab("organize")
+                }}
+                  className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'organize' ? "bg-gray-700" : ""}`}>Organize Applications</Button>
+                <Button onClick={() => {
+                   activeTab === "get-hired" ? setactiveTab("") : setactiveTab("get-hired")
+                }} className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'get-hired' ? "bg-gray-700" : ""}`}>Get Hired</Button>
+                <Button onClick={() => {
+                  activeTab === "manage-boards" ? setactiveTab("") : setactiveTab("manage-boards")
+                }} className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'manage-boards' ? "bg-gray-700" : ""}`}>Manage Boards</Button>
+              </div>
+              <div className="relative mx-auto max-w-5xl overflow-hidden rounded-lg border border-gray-200 shadow-xl">
+                {
+                  activeTab === "organize" && <Image
+                    src='/hero-images/hero1.png'
+                    width={1200}
+                    height={800}
+                    alt="hero1"
+                  />
+                }
+
+                {
+                  activeTab === "get-hired" && <Image
+                    src='/hero-images/hero2.png'
+                    width={1200}
+                    height={800}
+                    alt="hero2"
+                  />
+                }
+
+                {
+                  activeTab === "manage-boards" && <Image
+                    src='/hero-images/hero3.png'
+                    width={1200}
+                    height={800}
+                    alt="hero3"
+                  />
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
       </main>
     </div>
   );
