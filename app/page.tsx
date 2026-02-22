@@ -44,16 +44,10 @@ export default function Home() {
             <div className="mx-auto max-w-6xl">
               {/* Tabs */}
               <div className="flex gap-2 justify-center">
-                <Button onClick={() => {
-                  activeTab === "organize" ? setactiveTab("") : setactiveTab("organize")
-                }}
+                <Button onClick={() => setactiveTab(activeTab === "organize" ? "" : "organize")}
                   className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'organize' ? "bg-gray-700" : ""}`}>Organize Applications</Button>
-                <Button onClick={() => {
-                   activeTab === "get-hired" ? setactiveTab("") : setactiveTab("get-hired")
-                }} className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'get-hired' ? "bg-gray-700" : ""}`}>Get Hired</Button>
-                <Button onClick={() => {
-                  activeTab === "manage-boards" ? setactiveTab("") : setactiveTab("manage-boards")
-                }} className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'manage-boards' ? "bg-gray-700" : ""}`}>Manage Boards</Button>
+                <Button onClick={() => setactiveTab(activeTab === "get-hired" ? "" : "get-hired")} className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'get-hired' ? "bg-gray-700" : ""}`}>Get Hired</Button>
+                <Button onClick={() => setactiveTab(activeTab === "manage-boards" ? "" : "manage-boards")} className={`rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeTab === 'manage-boards' ? "bg-gray-700" : ""}`}>Manage Boards</Button>
               </div>
               <div className="relative mx-auto max-w-5xl overflow-hidden rounded-lg border border-gray-200 shadow-xl">
                 {

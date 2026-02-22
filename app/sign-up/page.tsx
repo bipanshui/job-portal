@@ -2,7 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { error } from "console";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -10,9 +12,15 @@ import { useState } from "react";
 export default function SignUp() {
 
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+ 
 
     const handleSubmit = async (e: React.FormEvent) => {
-
+        window.alert("handle called")
     }
 
     return <div className="flex min-h-[calc(100vh - 4rem)] items-center justify-center bg-white p-4">
@@ -25,29 +33,51 @@ export default function SignUp() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <CardContent className="space-y-4">
-                    <div>
+                    <div className="space-y-2">
                         <Label htmlFor="name" className="">Name</Label>
-                        <input
+                        <Input
                             type="text"
                             placeholder="John Doe"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="border-gray-300 focus:border-primary focus:ring-primary"
+                            className="border-gray-200"
                             required
                         />
                     </div>
-                    <div>
-                        <Label>Email</Label>
-                        <input type="text" placeholder="example@email.com" required />
+                    <div className="space-y-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input type="text"
+                            placeholder="example@email.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="border-gray-200"
+                        />
                     </div>
-                    <div>
+                    <div className="space-y-2">
                         <Label>Password</Label>
-                        <input type="password" placeholder="password" required />
+                        <Input type="password"
+                            placeholder="password"
+                            value={password}
+                            minLength={8}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="border-gray-200"
+                        />
                     </div>
                 </CardContent>
-                <CardFooter>
-                    <Button type="submit">Sign Up</Button>
-                    <p>Already have an account?<Link href='/sign-in'>Sign In</Link> </p>
+                <CardFooter className="flex flex-col space-y-4">
+                    <Button 
+                        type="submit"
+                        className="w-full hover:bg-gray-900"
+                        disabled={loading}
+                    >   {loading ? "Creating account.." : "Sign up"} </Button>
+                    <p className="text-center text-sm text-gray-600">
+                        Already have an account? {" "}
+                        <Link href='/sign-in' className="font-medium text-blue-500 hover:underline">
+                             Sign In
+                        </Link> 
+                    </p>
                 </CardFooter>
             </form>
         </Card>
