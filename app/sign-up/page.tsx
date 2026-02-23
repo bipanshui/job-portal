@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { error } from "console";
+import { signUp } from "@/lib/auth/auth-client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 
@@ -17,10 +18,32 @@ export default function SignUp() {
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
- 
+    
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
-        window.alert("handle called")
+        e.preventDefault();
+
+        setError("");
+        setLoading(true);
+
+        try{
+            const result = await signUp.email({
+                name,
+                email,
+                password
+            })
+
+            if(result.error){
+                setError(result.error.message ?? "Failed to sign up")
+            }else{
+                router.push("/dashboard")
+            }
+        }catch{
+            setError("An unexpected error ocurred");
+        }finally{
+            setLoading(false);
+        }
     }
 
     return <div className="flex min-h-[calc(100vh - 4rem)] items-center justify-center bg-white p-4">
@@ -33,6 +56,12 @@ export default function SignUp() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <CardContent className="space-y-4">
+                    {error && (
+                        <div className="rounded-md">
+                            {error}
+                        </div>
+                    )}
+
                     <div className="space-y-2">
                         <Label htmlFor="name" className="">Name</Label>
                         <Input
